@@ -15,10 +15,8 @@ const App = () => {
   const [board, setBoardData] = useState({});
 
   useEffect(() => {
-    monday.setToken(
-      "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjEwMzc3NjU0NSwidWlkIjoyMTAwNTY2NCwiaWFkIjoiMjAyMS0wMy0yMVQxNToyNjozMS44MDZaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6ODU0MTM0MCwicmduIjoidXNlMSJ9.fUM4-YZo5sql3viT4Bqbm9ehk7Px6hkp1r85un9yPX0"
-    );
-  }, [])
+    monday.setToken(process.env.REACT_APP_MONDAY_TOKEN);
+  }, []);
 
   const fetchTrainingBoard = () => {
     monday
