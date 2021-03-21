@@ -25,22 +25,22 @@ const App = () => {
   const [isInSelection, setIsInSelection] = useState(true)
 
   return (
-    <MondaySDKContext.Provider value={monday}>
-      <Container fluid>
-        <Row>
-          {currUserStatus === TRAINEE && <MainContentContainer />}
-          {currUserStatus === TRAINER && <TrainingCreationContainer />}
-          {isInSelection && (
-            <SelectionContainer
-              TRAINEE={TRAINEE}
-              TRAINER={TRAINER}
-              setCurrUserStatus={setCurrUserStatus}
-              setIsInSelection={setIsInSelection}
-            />
-          )}
-        </Row>
-      </Container>
-    </MondaySDKContext.Provider>
+        <MondaySDKContext.Provider value={monday}>
+        <Container fluid>
+            <Row>
+            {currUserStatus === TRAINEE && <MainContentContainer />}
+            {currUserStatus === TRAINER && <TrainingCreationContainer />}
+            {isInSelection && (
+                <SelectionContainer
+                TRAINEE={TRAINEE}
+                TRAINER={TRAINER}
+                setCurrUserStatus={setCurrUserStatus}
+                setIsInSelection={setIsInSelection}
+                />
+            )}
+            </Row>
+        </Container>
+        </MondaySDKContext.Provider>
   );
 }
   

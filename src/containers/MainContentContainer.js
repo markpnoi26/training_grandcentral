@@ -5,16 +5,16 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 const MainContentContainer = (props) => {
-  return (
-    <Container>
-      <Row>
-        <ContentWindow />
-      </Row>
-      <Row>
-        <ProgressBar />
-      </Row>
-    </Container>
-  );
+    return (
+        <Container>
+        <Row>
+            <ContentWindow />
+        </Row>
+        <Row>
+            <ProgressBar />
+        </Row>
+        </Container>
+    );
 };
 
 export default MainContentContainer;
