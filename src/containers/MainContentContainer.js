@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 const MainContentContainer = (props) => {
+    const {setIsInSelection, setCurrUserStatus} = props
+    
     return (
         <Container>
         <Row>
@@ -13,6 +15,11 @@ const MainContentContainer = (props) => {
         <Row>
             <ProgressBar />
         </Row>
+
+        <button onClick={() => {
+            setIsInSelection(true)
+            setCurrUserStatus('')
+        }}>go back</button>
         </Container>
     );
 };

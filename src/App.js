@@ -17,31 +17,39 @@ const monday = mondaySdk();
 
 monday.setToken(process.env.REACT_APP_MONDAY_TOKEN);
 
-const MondaySDKContext = React.createContext(monday)
-
 const App = () => {
 
-  const [currUserStatus, setCurrUserStatus] = useState('')
-  const [isInSelection, setIsInSelection] = useState(true)
+    const [currUserStatus, setCurrUserStatus] = useState('')
+    const [isInSelection, setIsInSelection] = useState(true)
 
-  return (
-        <MondaySDKContext.Provider value={monday}>
+    return (
         <Container fluid>
             <Row>
-            {currUserStatus === TRAINEE && <MainContentContainer />}
-            {currUserStatus === TRAINER && <TrainingCreationContainer />}
-            {isInSelection && (
-                <SelectionContainer
-                TRAINEE={TRAINEE}
-                TRAINER={TRAINER}
-                setCurrUserStatus={setCurrUserStatus}
-                setIsInSelection={setIsInSelection}
-                />
-            )}
+                {currUserStatus === TRAINEE && (
+                    <MainContentContainer
+                        monday={monday}
+                        setCurrUserStatus={setCurrUserStatus}
+                        setIsInSelection={setIsInSelection}
+                    />
+                )}
+                {currUserStatus === TRAINER && (
+                    <TrainingCreationContainer 
+                        monday={monday}
+                        setCurrUserStatus={setCurrUserStatus}
+                        setIsInSelection={setIsInSelection} 
+                    />
+                )}
+                {isInSelection && (
+                    <SelectionContainer
+                        TRAINEE={TRAINEE}
+                        TRAINER={TRAINER}
+                        setCurrUserStatus={setCurrUserStatus}
+                        setIsInSelection={setIsInSelection}
+                    />
+                )}
             </Row>
         </Container>
-        </MondaySDKContext.Provider>
-  );
+    );
 }
   
 
