@@ -13,7 +13,6 @@ const MainContentContainer = (props) => {
     // update board to include multiple trainees
     // update board with draggable components
     // be able to set training ID which is the board ID training
-    // 
 
     const [context, setContext] = useState({})
     const [currentBoardId, setCurrentBoardId] = useState(null)
@@ -28,7 +27,7 @@ const MainContentContainer = (props) => {
             setCurrentBoardId(data.boardId)
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [context])
 
     useEffect(() => {   
         monday
