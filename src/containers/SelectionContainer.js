@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import AttentionBox from "monday-ui-react-core/dist/AttentionBox.js";
 
 const SelectionContainer = (props) => {
 
@@ -26,6 +27,7 @@ const SelectionContainer = (props) => {
                 >
                     I am a Trainer
                 </button>
+                <AttentionBox />
             </Row>
         </Container>
     );

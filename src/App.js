@@ -7,7 +7,6 @@ import mondaySdk from "monday-sdk-js";
 import Container from 'react-bootstrap/Container'
 import MainContentContainer from "./containers/MainContentContainer";
 import SelectionContainer from "./containers/SelectionContainer"
-import TrainingCreationContainer from "./containers/TrainingCreationContainer"
 import Row from 'react-bootstrap/Row'
 
 const TRAINEE = 'trainee'
@@ -27,13 +26,15 @@ const App = () => {
             <Row>
                 {currUserStatus === TRAINEE && (
                     <MainContentContainer
+                        isUserOwner={false}
                         monday={monday}
                         setCurrUserStatus={setCurrUserStatus}
                         setIsInSelection={setIsInSelection}
                     />
                 )}
                 {currUserStatus === TRAINER && (
-                    <TrainingCreationContainer 
+                    <MainContentContainer 
+                        isUserOwner={true}
                         monday={monday}
                         setCurrUserStatus={setCurrUserStatus}
                         setIsInSelection={setIsInSelection} 
