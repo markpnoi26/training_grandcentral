@@ -1,38 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+
 import Container from "react-bootstrap/Container";
-import { MultiStepIndicator } from "monday-ui-react-core";
+import DialogContentContainer from 'monday-ui-react-core/dist/DialogContentContainer.js'
+
 
 const ProgressContainer = (props) => {
-    const FULFILLED = MultiStepIndicator.stepStatuses.FULFILLED;
-    const ACTIVE = MultiStepIndicator.stepStatuses.ACTIVE;
-    const PENDING = MultiStepIndicator.stepStatuses.PENDING;
-
-    const [itemsSteps, setItemSteps] = useState([])
     const { items } = props;
-
-    console.log(items)
-
-    useEffect(() => {
-        const itemStepsArray  = []
-        if (items.length > 0) {
-            items.forEach(item => {
-                itemStepsArray.push({
-                    status: PENDING,
-                    titleText: item.name,
-                    subtitleText: 'test subtitle'
-                })
-            })
-            setItemSteps(itemStepsArray);
-        }
-    }, [items])
-
-
 
     return (
         <Container>
-            {itemsSteps.length !== 0 && (
-                <MultiStepIndicator type={MultiStepIndicator.types.PRIMARY} steps={itemsSteps}/>
-            )}
+            <DialogContentContainer>
+                Progress bar will go here
+            </DialogContentContainer> 
         </Container>
     )
 };

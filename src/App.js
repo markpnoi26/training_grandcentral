@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState, useEffect }  from "react";
 
 import "./App.css";
 import "monday-ui-react-core/dist/main.css"
@@ -6,11 +6,7 @@ import "monday-ui-react-core/dist/main.css"
 import mondaySdk from "monday-sdk-js";
 import Container from 'react-bootstrap/Container'
 import MainContentContainer from "./containers/MainContentContainer";
-import SelectionContainer from "./containers/SelectionContainer"
 import Row from 'react-bootstrap/Row'
-
-const TRAINEE = 'trainee'
-const TRAINER = 'trainer'
 
 const monday = mondaySdk();
 
@@ -18,42 +14,31 @@ monday.setToken(process.env.REACT_APP_MONDAY_TOKEN);
 
 const App = () => {
 
-    const [currUserStatus, setCurrUserStatus] = useState('')
-    const [isInSelection, setIsInSelection] = useState(true)
+    const [boardId, setCurrentBoardId] = useState(null)
+
+    useEffect(() => {
+        monday.listen('settings', res => {
+            if (res.data.userStatus === 'trainer') {
+                monday.get('context').then( res => setCurrentBoardId(res.data.boardId))
+            } else {
+                setCurrentBoardId(parseInt(res.data.boardId, 10))
+            }
+        })
+    }, [])
 
     return (
         <Container fluid>
             <Row>
-                {currUserStatus === TRAINEE && (
+                {boardId && (
                     <MainContentContainer
-                        isUserOwner={false}
+                        boardId={boardId}
                         monday={monday}
-                        setCurrUserStatus={setCurrUserStatus}
-                        setIsInSelection={setIsInSelection}
-                    />
-                )}
-                {currUserStatus === TRAINER && (
-                    <MainContentContainer 
-                        isUserOwner={true}
-                        monday={monday}
-                        setCurrUserStatus={setCurrUserStatus}
-                        setIsInSelection={setIsInSelection} 
-                    />
-                )}
-                {isInSelection && (
-                    <SelectionContainer
-                        TRAINEE={TRAINEE}
-                        TRAINER={TRAINER}
-                        setCurrUserStatus={setCurrUserStatus}
-                        setIsInSelection={setIsInSelection}
                     />
                 )}
             </Row>
         </Container>
-    );
+    )
 }
   
 
 export default App;
-
-// import AttentionBox from "monday-ui-react-core/dist/AttentionBox.js"
