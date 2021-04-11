@@ -15,11 +15,13 @@ monday.setToken(process.env.REACT_APP_MONDAY_TOKEN);
 const App = () => {
 
     const [boardId, setCurrentBoardId] = useState(null)
+    const [viewerStatus, setViewerStatus] = useState('')
 
     useEffect(() => {
         monday.listen('settings', res => {
-            if (res.data.userStatus === 'trainer') {
-                monday.get('context').then( res => setCurrentBoardId(res.data.boardId))
+            setViewerStatus(res.data.userStatus)
+             if (res.data.userStatus === 'trainer' && !res.data.boardId) {
+                monday.get('context').then(res => setCurrentBoardId(res.data.boardId))
             } else {
                 setCurrentBoardId(parseInt(res.data.boardId, 10))
             }
@@ -27,14 +29,12 @@ const App = () => {
     }, [])
 
     return (
-        <Container fluid>
+        <Container fluid="xl">
             <Row>
-                {boardId && (
-                    <MainContentContainer
-                        boardId={boardId}
-                        monday={monday}
-                    />
+                {!isNaN(boardId) && viewerStatus !== 'select' && (
+                    <MainContentContainer boardId={boardId} monday={monday} />
                 )}
+                {viewerStatus === 'select' && 'Select Window'}
             </Row>
         </Container>
     )

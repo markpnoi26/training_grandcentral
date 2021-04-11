@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ContentWindow from "../components/MainComponents/ContentWindow";
-import ProgressBar from "../components/MainComponents/ProgressBar";
+import ContentWindow from "../components/ContentWindow";
+import ProgressBar from "../components/ProgressBar";
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
@@ -39,8 +39,10 @@ const MainContentContainer = (props) => {
             .then((response) => {
                 // check here for items structure,
                 // if correct structure render if not mutate to correct structure and then render
-                if (response.data.boards !== undefined) {
-                    setTrainingItems(response.data.boards[0].items)
+                const boards = response.data.boards
+                const sampleBoardItemColumn = boards[0].items[0].column_values 
+                if (boards !== undefined && sampleBoardItemColumn.find(col => col.title === "Link")) {
+                    setTrainingItems(boards[0].items)
                 } else {
                     setTrainingItems([])
                 }
@@ -55,7 +57,7 @@ const MainContentContainer = (props) => {
     return (
         <Container>
             <Row>
-                <ContentWindow items={items}/>
+                <ContentWindow monday={monday} items={items}/>
             </Row>
             <Row>
                 <ProgressBar items={items}/>
