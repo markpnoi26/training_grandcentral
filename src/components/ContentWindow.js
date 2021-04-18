@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Modal from 'react-bootstrap/Modal'
 
 import Spacer from '../utils-components/Spacer'
 import TitleAndControls from './TitleAndControls'
@@ -13,7 +12,6 @@ import VideoInfoMetadata from './VideoInfoMetadata'
 
 const ContentWindow = (props) => {
     const { items, monday } = props
-    const [showEditModal, setShowEditModal] = useState(false)
     const [boardItems, setBoardItems] = useState([])
     const [currBoardItemIdx, setCurrBoardItemIdx] = useState(0)
     const [currBoardItem, setCurrBoardItem] = useState(null)
@@ -46,33 +44,19 @@ const ContentWindow = (props) => {
 
     return (
         <Container fluid>
-            <Modal
-                show={showEditModal}
-                onHide={() => setShowEditModal(false)}
-                dialogClassName="modal-90w"
-                aria-labelledby="example-custom-modal-styling-title"
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="example-custom-modal-styling-title">
-                        Edit Training Content
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>Edit Window Goes Here</p>
-                </Modal.Body>
-            </Modal>
             <Spacer />
             <Row>
                 <Col>
                     {currBoardItem && (
                         <TitleAndControls
+                            boardItemsLength={boardItems.length}
+                            currBoardItemIdx={currBoardItemIdx}
+                            groupTitle={currBoardItem.group.title}
+                            itemId={currBoardItem.id}
+                            monday={monday}
                             name={currBoardItem.name}
                             nextItem={nextItem}
                             prevItem={prevItem}
-                            groupTitle={currBoardItem.group.title}
-                            setShowEditModal={setShowEditModal}
-                            boardItemsLength={boardItems.length}
-                            currBoardItemIdx={currBoardItemIdx}
                         />
                     )}
                 </Col>

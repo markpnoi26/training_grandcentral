@@ -8,12 +8,18 @@ const TitleAndControls = (props) => {
     const {
         boardItemsLength,
         currBoardItemIdx,
+        itemId,
         groupTitle,
         name,
+        monday,
         nextItem,
         prevItem,
-        setShowEditModal,
     } = props
+
+    const openItemCardModal = () => {
+        monday.execute('openItemCard', { itemId: itemId, kind: 'columns' })
+    }
+
 
     return (
         <DialogContentContainer>
@@ -43,9 +49,9 @@ const TitleAndControls = (props) => {
                     </Button>
                     <Button
                         size={Button.sizes.SMALL}
-                        onClick={() => setShowEditModal(true)}
+                        onClick={openItemCardModal}
                     >
-                        Edit Modal
+                        Edit Metadata
                     </Button>
                 </Col>
             </Row>
