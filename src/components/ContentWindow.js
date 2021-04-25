@@ -6,32 +6,39 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 import Spacer from '../utils-components/Spacer'
-import TitleAndControls from './TitleAndControls'
+import TitleBar from './TitleBar'
 import VideoInfoMetadata from './VideoInfoMetadata'
 
 
 const ContentWindow = (props) => {
-    const { items, monday } = props
+    const {
+        items,
+        monday,
+        setTrainingItems,
+        currBoardItemIdx,
+        currBoardItem,
+        setCurrBoardItemIdx,
+        setCurrBoardItem,
+        isViewerAdmin,
+    } = props
     const [boardItems, setBoardItems] = useState([])
-    const [currBoardItemIdx, setCurrBoardItemIdx] = useState(0)
-    const [currBoardItem, setCurrBoardItem] = useState(null)
+    const [isAutoPlay, setAutoPlay] = useState(false)
+    const [isAutoForward, setAutoForward] = useState(false)
 
     useEffect(() => {
         setBoardItems(items)
     }, [items])
 
     useEffect(() => {
-        // console.log(currBoardItem)
         setCurrBoardItem(boardItems[currBoardItemIdx])
-    }, [boardItems, currBoardItemIdx])
+    }, [boardItems, currBoardItemIdx, setCurrBoardItem])
 
     const findLinkUrlByBoardItem = boardItem => {
         const linkObj = boardItem.column_values.find(
             (columnVal) => columnVal.title === 'Link'
         )
-
-        const linkObjArray = linkObj.text.split(" ")
-        return linkObjArray[linkObjArray.length - 1]
+        const jsonData = JSON.parse(linkObj.value)
+        return jsonData.url
     }
 
     const nextItem = () => {
@@ -48,15 +55,9 @@ const ContentWindow = (props) => {
             <Row>
                 <Col>
                     {currBoardItem && (
-                        <TitleAndControls
-                            boardItemsLength={boardItems.length}
-                            currBoardItemIdx={currBoardItemIdx}
+                        <TitleBar
                             groupTitle={currBoardItem.group.title}
-                            itemId={currBoardItem.id}
-                            monday={monday}
                             name={currBoardItem.name}
-                            nextItem={nextItem}
-                            prevItem={prevItem}
                         />
                     )}
                 </Col>
@@ -66,9 +67,20 @@ const ContentWindow = (props) => {
                 <Col>
                     {currBoardItem && (
                         <VideoInfoMetadata
+                            currBoardItemIdx={currBoardItemIdx}
+                            boardItemsLength={boardItems.length}
                             linkUrl={findLinkUrlByBoardItem(currBoardItem)}
                             itemId={currBoardItem.id}
                             monday={monday}
+                            setBoardItems={setBoardItems}
+                            nextItem={nextItem}
+                            prevItem={prevItem}
+                            isAutoPlay={isAutoPlay}
+                            isAutoForward={isAutoForward}
+                            setAutoPlay={setAutoPlay}
+                            setAutoForward={setAutoForward}
+                            setTrainingItems={setTrainingItems}
+                            isViewerAdmin={isViewerAdmin}
                         />
                     )}
                 </Col>

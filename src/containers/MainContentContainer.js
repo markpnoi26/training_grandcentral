@@ -5,14 +5,16 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 const MainContentContainer = (props) => {
-    const { monday, boardId } = props;
-
-    // update board to populate training sections
-    // update board to include multiple trainees
-    // update board with draggable components
-    // be able to set training ID which is the board ID training
+    const { monday, boardId, isViewerAdmin } = props
 
     const [items, setTrainingItems] = useState([])
+    const [isValidBoardStructure, setIsValidBoardStructure] = useState(false)
+    const [currBoardItemIdx, setCurrBoardItemIdx] = useState(0)
+    const [currBoardItem, setCurrBoardItem] = useState(null)
+
+    const checkLinkExists = (columnValues) => {
+        return columnValues.find((col) => col.title === 'Link')
+    }
 
     useEffect(() => {
         monday
@@ -30,6 +32,7 @@ const MainContentContainer = (props) => {
                             column_values {
                                 title
                                 text
+                                value
                             }
                         }
                     }
@@ -37,33 +40,52 @@ const MainContentContainer = (props) => {
             `
             )
             .then((response) => {
-                // check here for items structure,
-                // if correct structure render if not mutate to correct structure and then render
                 const boards = response.data.boards
-                const sampleBoardItemColumn = boards[0].items[0].column_values 
-                if (boards !== undefined && sampleBoardItemColumn.find(col => col.title === "Link")) {
+                const sampleBoardItemColumnValues = boards[0].items[0].column_values 
+                if (
+                    boards !== undefined && checkLinkExists(sampleBoardItemColumnValues)
+                ) {
                     setTrainingItems(boards[0].items)
+                    setIsValidBoardStructure(true)
                 } else {
                     setTrainingItems([])
+                    setIsValidBoardStructure(false)
                 }
             })
             .catch((error) => {
                 setTrainingItems([])
-                console.log(error)
+                setIsValidBoardStructure(false)
             })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [boardId])
+    }, [boardId, monday])
     
     return (
         <Container>
-            <Row>
-                <ContentWindow monday={monday} items={items}/>
-            </Row>
-            <Row>
-                <ProgressBar items={items}/>
-            </Row>
+            {isValidBoardStructure && (
+                <Row>
+                    <ContentWindow
+                        currBoardItem={currBoardItem}
+                        currBoardItemIdx={currBoardItemIdx}
+                        items={items}
+                        monday={monday}
+                        setCurrBoardItem={setCurrBoardItem}
+                        setCurrBoardItemIdx={setCurrBoardItemIdx}
+                        setTrainingItems={setTrainingItems}
+                        isViewerAdmin={isViewerAdmin}
+                    />
+                </Row>
+            )}
+            {isValidBoardStructure && (
+                <Row>
+                    <ProgressBar
+                        items={items}
+                        currBoardItemIdx={currBoardItemIdx}
+                    />
+                </Row>
+            )}
+            {!isValidBoardStructure &&
+                'is Not Valid board, please check you that you have proper Link column attached'}
         </Container>
-    );
+    )
 };
 
 export default MainContentContainer;
