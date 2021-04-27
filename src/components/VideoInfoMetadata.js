@@ -22,6 +22,7 @@ const VideoInfoMetadata = props => {
         setAutoPlay,
         setTrainingItems,
         isViewerAdmin,
+        isDarkMode,
     } = props
     const [boardId, setBoardId] = useState(null)
     const [accountId, setAccountId] = useState(null)
@@ -53,7 +54,9 @@ const VideoInfoMetadata = props => {
     }
 
     return (
-        <DialogContentContainer>
+        <DialogContentContainer
+            className={isDarkMode ? 'dark-mode-dialog-container' : ''}
+        >
             <Row>
                 <Col sm={12}>
                     {checkUrlIsValid(linkUrl) ? (

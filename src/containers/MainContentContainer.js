@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 const MainContentContainer = (props) => {
-    const { monday, boardId, isViewerAdmin } = props
+    const { monday, boardId, isViewerAdmin, isDarkMode } = props
 
     const [items, setTrainingItems] = useState([])
     const [isValidBoardStructure, setIsValidBoardStructure] = useState(false)
@@ -71,6 +71,7 @@ const MainContentContainer = (props) => {
                         setCurrBoardItemIdx={setCurrBoardItemIdx}
                         setTrainingItems={setTrainingItems}
                         isViewerAdmin={isViewerAdmin}
+                        isDarkMode={isDarkMode}
                     />
                 </Row>
             )}
@@ -79,6 +80,7 @@ const MainContentContainer = (props) => {
                     <ProgressBar
                         items={items}
                         currBoardItemIdx={currBoardItemIdx}
+                        isDarkMode={isDarkMode}
                     />
                 </Row>
             )}

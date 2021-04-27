@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.dark-mode-dialog-container {
+  background-color: #4B4E69;
+  color: white;
+}
+
+.dark-mode-progress-bar {
+  color: white;
+}
+
+.centered-items {
+  text-align: center;
+}

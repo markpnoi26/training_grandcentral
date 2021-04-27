@@ -20,6 +20,7 @@ const ContentWindow = (props) => {
         setCurrBoardItemIdx,
         setCurrBoardItem,
         isViewerAdmin,
+        isDarkMode,
     } = props
     const [boardItems, setBoardItems] = useState([])
     const [isAutoPlay, setAutoPlay] = useState(false)
@@ -58,6 +59,7 @@ const ContentWindow = (props) => {
                         <TitleBar
                             groupTitle={currBoardItem.group.title}
                             name={currBoardItem.name}
+                            isDarkMode={isDarkMode}
                         />
                     )}
                 </Col>
@@ -81,6 +83,7 @@ const ContentWindow = (props) => {
                             setAutoForward={setAutoForward}
                             setTrainingItems={setTrainingItems}
                             isViewerAdmin={isViewerAdmin}
+                            isDarkMode={isDarkMode}
                         />
                     )}
                 </Col>

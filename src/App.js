@@ -18,6 +18,7 @@ const App = () => {
 
     const [boardId, setCurrentBoardId] = useState(null)
     const [viewerStatus, setViewerStatus] = useState('')
+    const [isDarkMode, setIsDarkMode] = useState(false)
 
     useEffect(() => {
         monday.listen('settings', res => {
@@ -30,7 +31,18 @@ const App = () => {
                  setCurrentBoardId(null)
              }
         })
+        monday.listen('context', (res) => {
+            setIsDarkMode(res.data.theme === "dark")
+        })
     }, [])
+
+    useEffect(() => {
+        if (isDarkMode) {
+            document.body.style = 'background-color: #1C1F3B;'
+        } else {
+            document.body.style = 'background-color: #f5f6f8;'
+        }
+    }, [isDarkMode])
 
     return (
         <Container fluid="xl">
@@ -40,15 +52,17 @@ const App = () => {
                         boardId={boardId}
                         monday={monday}
                         isViewerAdmin={viewerStatus === TRAINER}
+                        isDarkMode={isDarkMode}
                     />
                 )}
                 {viewerStatus === TRAINEE && boardId === null && (
                     <TraineeBoardSelectionContainer
                         setCurrentBoardId={setCurrentBoardId}
                         monday={monday}
+                        isDarkMode={isDarkMode}
                     />
                 )}
-                {viewerStatus === TRAINER && 'Select Window'}
+                {viewerStatus === SELECT && 'Select Window'}
             </Row>
         </Container>
     )

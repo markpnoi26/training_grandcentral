@@ -6,7 +6,7 @@ import LinearProgressBar from 'monday-ui-react-core/dist/LinearProgressBar.js'
 
 
 const ProgressContainer = (props) => {
-    const { items, currBoardItemIdx } = props;
+    const { items, currBoardItemIdx, isDarkMode } = props
     const [currProgressValue, setCurrProgressValue] = useState(0)
 
     useEffect(() => {
@@ -17,16 +17,19 @@ const ProgressContainer = (props) => {
         }
     }, [currBoardItemIdx, currProgressValue, items])
 
+    console.log(LinearProgressBar.styles)
+
     return (
         <Container>
-            <DialogContentContainer>
+            <DialogContentContainer className={isDarkMode? 'dark-mode-dialog-container': ''}>
                 <LinearProgressBar
+                    className={isDarkMode? 'dark-mode-progress-bar': ''}
                     value={currProgressValue}
                     animated={true}
                     max={100}
                     min={1}
                     size={LinearProgressBar.sizes.MEDIUM}
-                    barStyle={LinearProgressBar.styles.PRIMARY}
+                    barStyle={LinearProgressBar.styles.POSITIVE}
                     indicateProgress={true}
                 />
             </DialogContentContainer>

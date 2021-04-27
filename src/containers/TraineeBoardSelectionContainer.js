@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Dropdown from 'monday-ui-react-core/dist/Dropdown.js'
 
 const TraineeBoardSelectionContainer = (props) => {
-    const {setCurrentBoardId, monday} = props;
+    const {setCurrentBoardId, isDarkMode, monday} = props;
     const [contextBoardId, setContextBoardId] = useState(null)
     const [columnValueSelection, setColumnValueSelection] = useState([])
     const [currentTitleToLook, setCurrentTitleToLook] = useState('')
@@ -88,7 +88,7 @@ const TraineeBoardSelectionContainer = (props) => {
     }
 
     return (
-        <Container>
+        <Container className={isDarkMode ? 'dark-mode-dialog-container' : ''}>
             Set Board IDs to correct column to fetch all board ids or create a
             new column to store all your training sessions
             <Dropdown
