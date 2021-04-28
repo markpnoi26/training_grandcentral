@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ErrorMessage from '../components/ErrorMessage'
 import ContentWindow from "../components/ContentWindow";
 import ProgressBar from "../components/ProgressBar";
 import Container from 'react-bootstrap/Container'
@@ -84,8 +85,13 @@ const MainContentContainer = (props) => {
                     />
                 </Row>
             )}
-            {!isValidBoardStructure &&
-                'is Not Valid board, please check you that you have proper Link column attached'}
+            {!isValidBoardStructure && 
+                <ErrorMessage 
+                    message={
+                        "This is not a valid board for this selection, select the correct view setting using the settings icon or update the board to contain Link, see basic training template."
+                    } 
+                />
+            }
         </Container>
     )
 };

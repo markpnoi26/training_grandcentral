@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
-import Dropdown from 'monday-ui-react-core/dist/Dropdown.js'
+import Spacer from '../utils-components/Spacer'
+import DialogContentContainer from 'monday-ui-react-core/dist/DialogContentContainer'
+import Dropdown from 'monday-ui-react-core/dist/Dropdown'
+import Button from 'monday-ui-react-core/dist/Button'
 
 const TraineeBoardSelectionContainer = (props) => {
     const {setCurrentBoardId, isDarkMode, monday} = props;
@@ -87,32 +90,53 @@ const TraineeBoardSelectionContainer = (props) => {
         setCurrentTitleToLook(event.value)
     }
 
+    const findItemNameById = (id) => {
+        for (let boardItem of currentBoardItems) {
+            if (boardItem.column_values.find(item => item.text === id)) {
+                return boardItem.name
+            }
+        }
+    }
+
     return (
-        <Container className={isDarkMode ? 'dark-mode-dialog-container' : ''}>
-            Set Board IDs to correct column to fetch all board ids or create a
-            new column to store all your training sessions
-            <Dropdown
-                id="column-selection"
-                disabled={false}
-                clearable={true}
-                rtl={false}
-                searchable={true}
-                name="column-title"
-                options={columnValueSelection}
-                size={Dropdown.size.SMALL}
-                placeholder={'Dropdown placeholder'}
-                onChange={setSelectedColumnSelection}
-                menuPortalTarget={document.body}
-            />
-            {possibleBoardIds.length > 0 ? (
-                <ol>
-                    {possibleBoardIds.map((id) => (
-                        <li onClick={() => setCurrentBoardId(id)}> {id}</li>
-                    ))}
-                </ol>
-            ) : (
-                'no valid board ids found, select a different column, or add board ids from your team'
-            )}
+        <Container fluid="xl">
+            <Spacer />
+            <DialogContentContainer
+                className={isDarkMode ? 'dark-mode-dialog-container' : ''}
+            >
+                Set Board IDs to correct column to fetch all board ids or create
+                a new column to store all your training sessions, If you cannot find the board IDs, you may not be in the correct section. Select Trainer or refresh the app.
+                <Dropdown
+                    id="column-selection"
+                    disabled={false}
+                    clearable={true}
+                    rtl={false}
+                    searchable={true}
+                    name="column-title"
+                    options={columnValueSelection}
+                    size={Dropdown.size.SMALL}
+                    placeholder={'Dropdown placeholder'}
+                    onChange={setSelectedColumnSelection}
+                    menuPortalTarget={document.body}
+                />
+                {possibleBoardIds.length > 0 ? (
+                    <ol>
+                        {possibleBoardIds.map((id) => (
+                            <li>
+                                <Button
+                                    size={Button.sizes.SMALL}
+                                    onClick={() => setCurrentBoardId(id)}
+                                    color={Button.colors.PRIMARY}
+                                >
+                                    {findItemNameById(id)}
+                                </Button>
+                            </li>
+                        ))}
+                    </ol>
+                ) : (
+                    'no valid board ids found, select a different column, or add board ids from your team'
+                )}
+            </DialogContentContainer>
         </Container>
     )
 }

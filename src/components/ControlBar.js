@@ -8,12 +8,11 @@ import MoveArrowRight from 'monday-ui-react-core/dist/icons/MoveArrowRight'
 import TurnInto from 'monday-ui-react-core/dist/icons/TurnInto'
 import Tooltip from 'monday-ui-react-core/dist/Tooltip.js'
 
-import Form from 'react-bootstrap/Form'
 import Spacer from '../utils-components/Spacer'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 const ControlBar = props => {
     const {
