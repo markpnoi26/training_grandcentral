@@ -7,7 +7,6 @@ import Retry from 'monday-ui-react-core/dist/icons/Retry'
 import MoveArrowRight from 'monday-ui-react-core/dist/icons/MoveArrowRight'
 import TurnInto from 'monday-ui-react-core/dist/icons/TurnInto'
 import Tooltip from 'monday-ui-react-core/dist/Tooltip.js'
-import Group from 'monday-ui-react-core/dist/icons/Group'
 import Spacer from '../utils-components/Spacer'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -29,7 +28,6 @@ const ControlBar = props => {
         setAutoPlay,
         setTrainingItems,
         isViewerAdmin,
-        setCurrentBoardId,
     } = props
 
     const openUpdatesPanel = () => {
@@ -98,24 +96,6 @@ const ControlBar = props => {
                         </Button>
                     </Tooltip>
                 </Col>
-                {!isViewerAdmin && (
-                    <Col>
-                        <Tooltip
-                            showDelay={300}
-                            content="Back to Selection"
-                            containerSelector="body"
-                            position="bottom"
-                        >
-                            <Button
-                                size={Button.sizes.SMALL}
-                                onClick={() => setCurrentBoardId(null)}
-                                color={Button.colors.ON_PRIMARY_COLOR}
-                            >
-                                <Group />
-                            </Button>
-                        </Tooltip>
-                    </Col>
-                )}
                 <Col>
                     <Tooltip
                         showDelay={300}

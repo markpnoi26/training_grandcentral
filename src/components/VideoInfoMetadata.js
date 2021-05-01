@@ -23,7 +23,6 @@ const VideoInfoMetadata = props => {
         setTrainingItems,
         isViewerAdmin,
         isDarkMode,
-        setCurrentBoardId,
     } = props
     const [boardId, setBoardId] = useState(null)
     const [accountId, setAccountId] = useState(null)
@@ -88,7 +87,6 @@ const VideoInfoMetadata = props => {
                             setAutoForward={setAutoForward}
                             setTrainingItems={setTrainingItems}
                             isViewerAdmin={isViewerAdmin}
-                            setCurrentBoardId={setCurrentBoardId}
                         />
                     )}
                 </Col>

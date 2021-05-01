@@ -74,6 +74,7 @@ const MainContentContainer = (props) => {
                 <>
                     <Row>
                         <ContentWindow
+                            boardId={boardId}
                             currBoardItem={currBoardItem}
                             currBoardItemIdx={currBoardItemIdx}
                             items={items}

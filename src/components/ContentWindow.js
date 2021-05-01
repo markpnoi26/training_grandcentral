@@ -12,6 +12,7 @@ import VideoInfoMetadata from './VideoInfoMetadata'
 
 const ContentWindow = (props) => {
     const {
+        boardId,
         items,
         monday,
         setTrainingItems,
@@ -59,9 +60,12 @@ const ContentWindow = (props) => {
                 <Col>
                     {currBoardItem && (
                         <TitleBar
+                            boardId={boardId}
                             groupTitle={currBoardItem.group.title}
                             name={currBoardItem.name}
                             isDarkMode={isDarkMode}
+                            isViewerAdmin={isViewerAdmin}
+                            setCurrentBoardId={setCurrentBoardId}
                         />
                     )}
                 </Col>
@@ -84,7 +88,6 @@ const ContentWindow = (props) => {
                             setAutoPlay={setAutoPlay}
                             setAutoForward={setAutoForward}
                             setTrainingItems={setTrainingItems}
-                            setCurrentBoardId={setCurrentBoardId}
                             isViewerAdmin={isViewerAdmin}
                             isDarkMode={isDarkMode}
                         />
