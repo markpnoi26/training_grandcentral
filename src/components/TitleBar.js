@@ -27,11 +27,11 @@ const TitleBar = (props) => {
                         containerSelector="body"
                         position="bottom"
                     >
-                        <div style={{ fontSize: '32px', fontWeight: 'bolder' }}>
+                        <div style={{ fontSize: '24px', fontWeight: 'bolder' }}>
                             {truncateTitle(name)}
                         </div>
                     </Tooltip>
-                    <div style={{ fontSize: '14px', fontWeight: 'bolder' }}>
+                    <div style={{ fontSize: '16px' }}>
                         {' '}
                         Group: {groupTitle}
                     </div>

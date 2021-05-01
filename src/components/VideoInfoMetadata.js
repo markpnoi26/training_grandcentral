@@ -23,6 +23,7 @@ const VideoInfoMetadata = props => {
         setTrainingItems,
         isViewerAdmin,
         isDarkMode,
+        setCurrentBoardId,
     } = props
     const [boardId, setBoardId] = useState(null)
     const [accountId, setAccountId] = useState(null)
@@ -48,10 +49,6 @@ const VideoInfoMetadata = props => {
         } 
     }
 
-    const checkUrlIsValid = (url) => {
-        const urlCheckRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
-        return urlCheckRegex.test(url)
-    }
 
     return (
         <DialogContentContainer
@@ -59,7 +56,7 @@ const VideoInfoMetadata = props => {
         >
             <Row>
                 <Col sm={12}>
-                    {checkUrlIsValid(linkUrl) ? (
+                    {linkUrl !== '' ? (
                         <ReactPlayer
                             url={linkUrl}
                             controls
@@ -69,7 +66,7 @@ const VideoInfoMetadata = props => {
                             onEnded={playNext}
                         />
                     ) : (
-                        'There\'s no Video associated with this Page, refer to "Updates & Additional Materials" button below or contact the owner of this board for more information.'
+                        'There\'s no video associated with this page, refer to "Updates & Additional Materials" button below or contact the owner of this board for more information.'
                     )}
                 </Col>
             </Row>
@@ -91,6 +88,7 @@ const VideoInfoMetadata = props => {
                             setAutoForward={setAutoForward}
                             setTrainingItems={setTrainingItems}
                             isViewerAdmin={isViewerAdmin}
+                            setCurrentBoardId={setCurrentBoardId}
                         />
                     )}
                 </Col>

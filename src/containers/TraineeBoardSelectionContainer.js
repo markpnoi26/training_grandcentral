@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
+import Table from 'react-bootstrap/Table'
 import Spacer from '../utils-components/Spacer'
+import Enter from 'monday-ui-react-core/dist/icons/Enter'
 import DialogContentContainer from 'monday-ui-react-core/dist/DialogContentContainer'
 import Dropdown from 'monday-ui-react-core/dist/Dropdown'
 import Button from 'monday-ui-react-core/dist/Button'
@@ -87,7 +89,11 @@ const TraineeBoardSelectionContainer = (props) => {
     }
 
     const setSelectedColumnSelection = (event) => {
-        setCurrentTitleToLook(event.value)
+        if (event !== null) {
+            setCurrentTitleToLook(event.value)
+        } else {
+            setCurrentTitleToLook("")
+        }
     }
 
     const findItemNameById = (id) => {
@@ -99,17 +105,19 @@ const TraineeBoardSelectionContainer = (props) => {
     }
 
     return (
-        <Container fluid="xl">
+        <Container fluid="md">
             <Spacer />
             <DialogContentContainer
                 className={isDarkMode ? 'dark-mode-dialog-container' : ''}
             >
                 Set Board IDs to correct column to fetch all board ids or create
-                a new column to store all your training sessions, If you cannot find the board IDs, you may not be in the correct section. Select Trainer or refresh the app.
+                a new column to store all your training sessions, If you cannot
+                find the board IDs, you may not be in the correct section.
+                Select Trainer or refresh the app.
                 <Dropdown
                     id="column-selection"
                     disabled={false}
-                    clearable={true}
+                    clearable={false}
                     rtl={false}
                     searchable={true}
                     name="column-title"
@@ -119,23 +127,35 @@ const TraineeBoardSelectionContainer = (props) => {
                     onChange={setSelectedColumnSelection}
                     menuPortalTarget={document.body}
                 />
-                {possibleBoardIds.length > 0 ? (
-                    <ol>
-                        {possibleBoardIds.map((id) => (
-                            <li>
-                                <Button
-                                    size={Button.sizes.SMALL}
-                                    onClick={() => setCurrentBoardId(id)}
-                                    color={Button.colors.PRIMARY}
-                                >
-                                    {findItemNameById(id)}
-                                </Button>
-                            </li>
-                        ))}
-                    </ol>
-                ) : (
-                    'no valid board ids found, select a different column, or add board ids from your team'
-                )}
+                <Spacer />
+                <Table striped bordered hover variant="dark">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Session Name</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    {possibleBoardIds.length > 0 ? (
+                        <tbody>
+                            {possibleBoardIds.map((id) => (
+                                <tr>
+                                    <td>{id}</td>
+                                    <td>{findItemNameById(id)}</td>
+                                    <td>
+                                        <Button
+                                            size={Button.sizes.SMALL}
+                                            onClick={() => setCurrentBoardId(id)}
+                                            color={Button.colors.PRIMARY}
+                                        >
+                                            <Enter />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    ): ""}
+                </Table>
             </DialogContentContainer>
         </Container>
     )

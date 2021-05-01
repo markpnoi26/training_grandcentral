@@ -21,6 +21,7 @@ const ContentWindow = (props) => {
         setCurrBoardItem,
         isViewerAdmin,
         isDarkMode,
+        setCurrentBoardId,
     } = props
     const [boardItems, setBoardItems] = useState([])
     const [isAutoPlay, setAutoPlay] = useState(false)
@@ -39,7 +40,8 @@ const ContentWindow = (props) => {
             (columnVal) => columnVal.title === 'Link'
         )
         const jsonData = JSON.parse(linkObj.value)
-        return jsonData.url
+
+        return jsonData ? jsonData.url : ''
     }
 
     const nextItem = () => {
@@ -82,6 +84,7 @@ const ContentWindow = (props) => {
                             setAutoPlay={setAutoPlay}
                             setAutoForward={setAutoForward}
                             setTrainingItems={setTrainingItems}
+                            setCurrentBoardId={setCurrentBoardId}
                             isViewerAdmin={isViewerAdmin}
                             isDarkMode={isDarkMode}
                         />

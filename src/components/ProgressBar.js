@@ -17,8 +17,6 @@ const ProgressContainer = (props) => {
         }
     }, [currBoardItemIdx, currProgressValue, items])
 
-    console.log(LinearProgressBar.styles)
-
     return (
         <Container>
             <DialogContentContainer className={isDarkMode? 'dark-mode-dialog-container': ''}>

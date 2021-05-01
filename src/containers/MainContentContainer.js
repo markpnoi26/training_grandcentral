@@ -4,9 +4,17 @@ import ContentWindow from "../components/ContentWindow";
 import ProgressBar from "../components/ProgressBar";
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Spacer from "../utils-components/Spacer";
 
 const MainContentContainer = (props) => {
-    const { monday, boardId, isViewerAdmin, isDarkMode } = props
+    const {
+        monday,
+        boardId,
+        isLoading,
+        isViewerAdmin,
+        isDarkMode,
+        setCurrentBoardId,
+    } = props
 
     const [items, setTrainingItems] = useState([])
     const [isValidBoardStructure, setIsValidBoardStructure] = useState(false)
@@ -61,37 +69,39 @@ const MainContentContainer = (props) => {
     
     return (
         <Container>
-            {isValidBoardStructure && (
-                <Row>
-                    <ContentWindow
-                        currBoardItem={currBoardItem}
-                        currBoardItemIdx={currBoardItemIdx}
-                        items={items}
-                        monday={monday}
-                        setCurrBoardItem={setCurrBoardItem}
-                        setCurrBoardItemIdx={setCurrBoardItemIdx}
-                        setTrainingItems={setTrainingItems}
-                        isViewerAdmin={isViewerAdmin}
-                        isDarkMode={isDarkMode}
-                    />
-                </Row>
+            <Spacer />
+            {isValidBoardStructure && !isLoading && (
+                <>
+                    <Row>
+                        <ContentWindow
+                            currBoardItem={currBoardItem}
+                            currBoardItemIdx={currBoardItemIdx}
+                            items={items}
+                            monday={monday}
+                            setCurrBoardItem={setCurrBoardItem}
+                            setCurrBoardItemIdx={setCurrBoardItemIdx}
+                            setTrainingItems={setTrainingItems}
+                            isViewerAdmin={isViewerAdmin}
+                            isDarkMode={isDarkMode}
+                            setCurrentBoardId={setCurrentBoardId}
+                        />
+                    </Row>
+                    <Row>
+                        <ProgressBar
+                            items={items}
+                            currBoardItemIdx={currBoardItemIdx}
+                            isDarkMode={isDarkMode}
+                        />
+                    </Row>
+                </>
             )}
-            {isValidBoardStructure && (
-                <Row>
-                    <ProgressBar
-                        items={items}
-                        currBoardItemIdx={currBoardItemIdx}
-                        isDarkMode={isDarkMode}
-                    />
-                </Row>
-            )}
-            {!isValidBoardStructure && 
-                <ErrorMessage 
+            {!isValidBoardStructure && !isLoading && (
+                <ErrorMessage
                     message={
-                        "This is not a valid board for this selection, select the correct view setting using the settings icon or update the board to contain Link, see basic training template."
-                    } 
+                        'This is not a valid board for this selection, select the correct view setting using the settings icon or update the board to contain Link, see basic training template.'
+                    }
                 />
-            }
+            )}
         </Container>
     )
 };
