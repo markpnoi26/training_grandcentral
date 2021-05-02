@@ -28,6 +28,7 @@ const ControlBar = props => {
         setAutoPlay,
         setTrainingItems,
         isViewerAdmin,
+        isDarkMode,
     } = props
 
     const openUpdatesPanel = () => {
@@ -91,6 +92,12 @@ const ControlBar = props => {
                             size={Button.sizes.SMALL}
                             onClick={prevItem}
                             disabled={currBoardItemIdx === 0}
+                            color={
+                                isDarkMode
+                                    ? Button.colors.ON_PRIMARY_COLOR
+                                    : Button.colors.PRIMARY
+                            }
+                            kind={Button.kinds.TERTIARY}
                         >
                             <DropdownChevronLeft />
                         </Button>
@@ -106,7 +113,12 @@ const ControlBar = props => {
                         <Button
                             size={Button.sizes.SMALL}
                             onClick={openUpdatesPanel}
-                            color={Button.colors.ON_PRIMARY_COLOR}
+                            color={
+                                isDarkMode
+                                    ? Button.colors.ON_PRIMARY_COLOR
+                                    : Button.colors.PRIMARY
+                            }
+                            kind={Button.kinds.TERTIARY}
                         >
                             <Update />
                         </Button>
@@ -123,14 +135,18 @@ const ControlBar = props => {
                             <Button
                                 size={Button.sizes.SMALL}
                                 onClick={openItemCardModal}
-                                color={Button.colors.ON_PRIMARY_COLOR}
+                                color={
+                                    isDarkMode
+                                        ? Button.colors.ON_PRIMARY_COLOR
+                                        : Button.colors.PRIMARY
+                                }
+                                kind={Button.kinds.TERTIARY}
                             >
                                 <Item />
                             </Button>
                         </Tooltip>
                     </Col>
                 )}
-
                 {isViewerAdmin && (
                     <Col>
                         <Tooltip
@@ -142,7 +158,12 @@ const ControlBar = props => {
                             <Button
                                 size={Button.sizes.SMALL}
                                 onClick={refreshItem}
-                                color={Button.colors.ON_PRIMARY_COLOR}
+                                color={
+                                    isDarkMode
+                                        ? Button.colors.ON_PRIMARY_COLOR
+                                        : Button.colors.PRIMARY
+                                }
+                                kind={Button.kinds.TERTIARY}
                             >
                                 <Retry />
                             </Button>
@@ -152,7 +173,9 @@ const ControlBar = props => {
                 <Col>
                     <Tooltip
                         showDelay={300}
-                        content="Autoplay Video on load - Green, Red if not"
+                        content={`Autoplay video on load autoplay is currently ${
+                            isAutoPlay ? 'on' : 'off'
+                        }`}
                         containerSelector="body"
                         position="bottom"
                     >
@@ -164,6 +187,7 @@ const ControlBar = props => {
                                     : Button.colors.NEGATIVE
                             }
                             onClick={() => setAutoPlay(!isAutoPlay)}
+                            kind={Button.kinds.TERTIARY}
                         >
                             <TurnInto />
                         </Button>
@@ -172,7 +196,9 @@ const ControlBar = props => {
                 <Col>
                     <Tooltip
                         showDelay={300}
-                        content="Move to next section Automatically - Green, Red if not"
+                        content={`Move to next section automatically: Autoforward is currently ${
+                            isAutoForward ? 'on' : 'off'
+                        }`}
                         containerSelector="body"
                         position="bottom"
                     >
@@ -184,6 +210,7 @@ const ControlBar = props => {
                                     : Button.colors.NEGATIVE
                             }
                             onClick={() => setAutoForward(!isAutoForward)}
+                            kind={Button.kinds.TERTIARY}
                         >
                             <MoveArrowRight />
                         </Button>
@@ -199,7 +226,13 @@ const ControlBar = props => {
                         <Button
                             size={Button.sizes.SMALL}
                             onClick={nextItem}
+                            color={
+                                isDarkMode
+                                    ? Button.colors.ON_PRIMARY_COLOR
+                                    : Button.colors.PRIMARY
+                            }
                             disabled={currBoardItemIdx === boardItemsLength - 1}
+                            kind={Button.kinds.TERTIARY}
                         >
                             <DropdownChevronRight />
                         </Button>

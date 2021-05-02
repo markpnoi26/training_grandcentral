@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Spacer from '../utils-components/Spacer'
-import AttentionBox from 'monday-ui-react-core/dist/AttentionBox'
+import Banner from 'monday-ui-react-core/dist/Banner'
 import Spinner from 'react-bootstrap/Spinner'
 import DialogContentContainer from 'monday-ui-react-core/dist/DialogContentContainer'
 
@@ -28,12 +28,15 @@ const ErrorMessage = (props) => {
             {!props.isLoading && (
                 <Row>
                     <Col>
-                        <AttentionBox
+                        <Banner
                             title={'Wrong Selection or no Valid boards'}
-                            text={props.message}
+                            subtitle={props.message}
+                            onClose={() => props.setCurrentBoardId(null)}
+                            rtl={false}
                         />
                     </Col>
                 </Row>
+
             )}
         </Container>
     )    

@@ -98,8 +98,9 @@ const MainContentContainer = (props) => {
             )}
             {!isValidBoardStructure && !isLoading && (
                 <ErrorMessage
+                    setCurrentBoardId={setCurrentBoardId}
                     message={
-                        'This is not a valid board for this selection, select the correct view setting using the settings icon or update the board to contain Link, see basic training template.'
+                        'Either this is not a valid Board ID or not a valid board structure. If you are in training collection view, add a valid board ID, if you are in training view, update the column to contain a Link, with valid video URLs.'
                     }
                 />
             )}

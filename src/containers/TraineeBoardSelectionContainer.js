@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
-import Table from 'react-bootstrap/Table'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Spacer from '../utils-components/Spacer'
+
+import Tooltip from 'monday-ui-react-core/dist/Tooltip'
+import Retry from 'monday-ui-react-core/dist/icons/Retry'
 import Enter from 'monday-ui-react-core/dist/icons/Enter'
 import DialogContentContainer from 'monday-ui-react-core/dist/DialogContentContainer'
 import Dropdown from 'monday-ui-react-core/dist/Dropdown'
@@ -22,7 +26,7 @@ const TraineeBoardSelectionContainer = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
+    useEffect(() => { 
         monday
             .api(
                 `
@@ -60,6 +64,16 @@ const TraineeBoardSelectionContainer = (props) => {
         setPossibleBoardIds(candidates.filter(candidate => digitCheck.test(candidate)))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentTitleToLook])
+
+    const refreshApp = () => {
+        setContextBoardId(null)
+        monday.get('context')
+            .then((response) => {
+                console.log(response)
+                setContextBoardId(response.data.boardId)
+            })
+            .catch((error) => console.log(error))
+    }
 
     const getCandidateBoardIds = (boardItems) => {
         const candidates = []
@@ -110,43 +124,79 @@ const TraineeBoardSelectionContainer = (props) => {
             <DialogContentContainer
                 className={isDarkMode ? 'dark-mode-dialog-container' : ''}
             >
-                Set Board IDs to correct column to fetch all board ids or create
-                a new column to store all your training sessions, If you cannot
-                find the board IDs, you may not be in the correct section.
-                Select Trainer or refresh the app.
-                <Dropdown
-                    id="column-selection"
-                    disabled={false}
-                    clearable={false}
-                    rtl={false}
-                    searchable={true}
-                    name="column-title"
-                    options={columnValueSelection}
-                    size={Dropdown.size.SMALL}
-                    placeholder={'Dropdown placeholder'}
-                    onChange={setSelectedColumnSelection}
-                    menuPortalTarget={document.body}
-                />
+                Select the board column containing the Board IDs, columns must
+                have valid ID to be fetched:
+                <Row>
+                    <Col xl="11">
+                        <Dropdown
+                            id="column-selection"
+                            disabled={false}
+                            clearable={false}
+                            rtl={false}
+                            searchable={true}
+                            name="column-title"
+                            options={columnValueSelection}
+                            size={Dropdown.size.SMALL}
+                            placeholder={'Columns'}
+                            onChange={setSelectedColumnSelection}
+                        />
+                    </Col>
+                    <Col>
+                        <Tooltip
+                            showDelay={300}
+                            content="Refresh Selection"
+                            containerSelector="body"
+                            position="bottom"
+                        >
+                            <Button
+                                size={Button.sizes.SMALL}
+                                onClick={refreshApp}
+                                color={
+                                    isDarkMode
+                                        ? Button.colors.ON_PRIMARY_COLOR
+                                        : Button.colors.PRIMARY
+                                }
+                                kind={Button.kinds.TERTIARY}
+                            >
+                                <Retry />
+                            </Button>
+                        </Tooltip>
+                    </Col>
+                </Row>
                 <Spacer />
-                <Table striped bordered hover variant="dark">
+                <table style={{ width: '100%' }}>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Session Name</th>
-                            <th>View</th>
+                            <th style={{ width: '15%', textAlign: 'center' }}>
+                                ID
+                            </th>
+                            <th style={{ width: '80%' }}>Session Name</th>
+                            <th style={{ width: '5%', textAlign: 'center' }}>
+                                Go
+                            </th>
                         </tr>
                     </thead>
                     {possibleBoardIds.length > 0 ? (
                         <tbody>
                             {possibleBoardIds.map((id) => (
                                 <tr>
-                                    <td>{id}</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        {id}
+                                    </td>
                                     <td>{findItemNameById(id)}</td>
-                                    <td>
+                                    <td style={{ textAlign: 'center' }}>
                                         <Button
                                             size={Button.sizes.SMALL}
-                                            onClick={() => setCurrentBoardId(id)}
-                                            color={Button.colors.PRIMARY}
+                                            onClick={() =>
+                                                setCurrentBoardId(id)
+                                            }
+                                            kind={Button.kinds.TERTIARY}
+                                            color={
+                                                isDarkMode
+                                                    ? Button.colors
+                                                          .ON_PRIMARY_COLOR
+                                                    : Button.colors.PRIMARY
+                                            }
                                         >
                                             <Enter />
                                         </Button>
@@ -154,8 +204,10 @@ const TraineeBoardSelectionContainer = (props) => {
                                 </tr>
                             ))}
                         </tbody>
-                    ): ""}
-                </Table>
+                    ) : (
+                        ''
+                    )}
+                </table>
             </DialogContentContainer>
         </Container>
     )

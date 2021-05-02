@@ -87,6 +87,7 @@ const VideoInfoMetadata = props => {
                             setAutoForward={setAutoForward}
                             setTrainingItems={setTrainingItems}
                             isViewerAdmin={isViewerAdmin}
+                            isDarkMode={isDarkMode}
                         />
                     )}
                 </Col>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import DialogContentContainer from 'monday-ui-react-core/dist/DialogContentContainer.js'
 import Duplicate from 'monday-ui-react-core/dist/icons/Duplicate'
 import Group from 'monday-ui-react-core/dist/icons/Group'
@@ -16,6 +16,20 @@ const TitleBar = (props) => {
         boardId,
         setCurrentBoardId,
     } = props
+    const CURRENT_BOARD_ID = 'current-board-id'
+    
+    const [copied, setCopied] = useState('')
+
+    useEffect(() =>{
+        let messageTimeOut
+        if (copied) {
+            messageTimeOut = setTimeout(() => setCopied(''), 3000)
+        }
+
+        return () => {
+            clearTimeout(messageTimeOut)
+        }
+    }, [copied])
 
     const truncateTitle = (title) => {
         let newTitle = title
@@ -26,8 +40,16 @@ const TitleBar = (props) => {
     }
 
     const copyBoardIdToClipboard = () => {
-        // TODO(mdelgado): gotta change this part
-        console.log(boardId)
+        let id = document.querySelector(`#${CURRENT_BOARD_ID}`)
+        id.focus()
+        id.select()
+        try {
+            document.execCommand('copy')
+            setCopied("Copied!")
+        } catch (err) {
+            setCopied("Copy failed!")
+        }
+
     }
 
     return (
@@ -46,7 +68,14 @@ const TitleBar = (props) => {
                             {truncateTitle(name)}
                         </div>
                     </Tooltip>
-                    <div style={{ fontSize: '16px', display: "flex", justifyContent: 'left', alignItems: 'center' }}>
+                    <div
+                        style={{
+                            fontSize: '16px',
+                            display: 'flex',
+                            justifyContent: 'left',
+                            alignItems: 'center',
+                        }}
+                    >
                         {!isViewerAdmin ? (
                             <Tooltip
                                 showDelay={300}
@@ -66,7 +95,11 @@ const TitleBar = (props) => {
                         ) : (
                             <Tooltip
                                 showDelay={300}
-                                content="Copy Board ID to Clipboard"
+                                content={
+                                    copied === ''
+                                        ? 'Copy board ID to clipboard'
+                                        : copied
+                                }
                                 containerSelector="body"
                                 position="bottom"
                             >
@@ -79,7 +112,22 @@ const TitleBar = (props) => {
                                     <Duplicate />
                                 </Button>
                             </Tooltip>
-                        )}{' '} Group: {groupTitle}{' '}
+                        )}{' '}
+                        {groupTitle}
+                        <textarea
+                            style={{
+                                resize: 'none',
+                                width: '0',
+                                height: '0',
+                                position: 'absolute',
+                                zIndex: '-1',
+                                opacity: '.01',
+                            }}
+                            readonly
+                            id={CURRENT_BOARD_ID}
+                        >
+                            {boardId}
+                        </textarea>
                     </div>
                 </Col>
             </Row>
