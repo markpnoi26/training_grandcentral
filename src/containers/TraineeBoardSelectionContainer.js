@@ -124,10 +124,41 @@ const TraineeBoardSelectionContainer = (props) => {
             <DialogContentContainer
                 className={isDarkMode ? 'dark-mode-dialog-container' : ''}
             >
-                Select the board column containing the Board IDs, columns must
-                have valid ID to be fetched:
                 <Row>
-                    <Col xl="11">
+                    <Col sm="12">
+                        <div
+                            style={{
+                                fontSize: '16px',
+                                display: 'flex',
+                                justifyContent: 'left',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Tooltip
+                                showDelay={300}
+                                content="Refresh Selection"
+                                containerSelector="body"
+                                position="bottom"
+                            >
+                                <Button
+                                    size={Button.sizes.SMALL}
+                                    onClick={refreshApp}
+                                    color={
+                                        isDarkMode
+                                            ? Button.colors.ON_PRIMARY_COLOR
+                                            : Button.colors.PRIMARY
+                                    }
+                                    kind={Button.kinds.TERTIARY}
+                                >
+                                    <Retry />
+                                </Button>
+                            </Tooltip>
+                            Select the board column containing valid training board ids:
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
                         <Dropdown
                             id="column-selection"
                             disabled={false}
@@ -140,27 +171,6 @@ const TraineeBoardSelectionContainer = (props) => {
                             placeholder={'Columns'}
                             onChange={setSelectedColumnSelection}
                         />
-                    </Col>
-                    <Col>
-                        <Tooltip
-                            showDelay={300}
-                            content="Refresh Selection"
-                            containerSelector="body"
-                            position="bottom"
-                        >
-                            <Button
-                                size={Button.sizes.SMALL}
-                                onClick={refreshApp}
-                                color={
-                                    isDarkMode
-                                        ? Button.colors.ON_PRIMARY_COLOR
-                                        : Button.colors.PRIMARY
-                                }
-                                kind={Button.kinds.TERTIARY}
-                            >
-                                <Retry />
-                            </Button>
-                        </Tooltip>
                     </Col>
                 </Row>
                 <Spacer />
