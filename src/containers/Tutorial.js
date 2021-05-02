@@ -11,7 +11,7 @@ const TutorialContainer = (props) => {
     const { isDarkMode } = props
 
     return (
-        <Container fluid="xl">
+        <Container fluid="sm">
             <Spacer />
             <Row>
                 <Col>
@@ -20,42 +20,95 @@ const TutorialContainer = (props) => {
                             isDarkMode ? 'dark-mode-dialog-container' : ''
                         }
                     >
-                        <div style={{fontSize: "24px", fontWeight: "bolder"}}>Getting Started</div>
-                        <p>
-                            Create a training board similar to monday.com basic
-                            training template (with Link column).
-                            <img
-                                width="100%"
-                                alt="find basic training template"
-                                src="find_monday_basic_training.gif"
-                            />
-                        </p>
-                        <p>
-                            Collections board needs a column that contains other
-                            training boards.
-                            <img
-                                width="100%"
-                                alt="create training collection item with Board ID column"
-                                src="create_training_collection_item.gif"
-                            />
-                        </p>
-                        <p>
-                            Grab the board ID from training view.
-                            <img
-                                width="100%"
-                                alt="get board id"
-                                src="grab_board_id_from_training_view.gif"
-                            />
-                        </p>
-                        <p>
-                            Training collection keeps all training sessions in
-                            one place.
-                            <img
-                                width="100%"
-                                alt="create training collection item with Board ID column"
-                                src="view_from_collection.gif"
-                            />
-                        </p>
+                        <div
+                            style={{
+                                fontSize: '24px',
+                                fontWeight: 'bolder',
+                                textAlign: 'center',
+                                alignContent: 'center',
+                            }}
+                        >
+                            Getting Started:
+                        </div>
+                        <div
+                            style={{
+                                textAlign: 'center',
+                            }}
+                        >
+                            <p>
+                                You have two view selections, one for training
+                                collection, one for general training session.
+                            </p>
+                            <div
+                                style={{
+                                    textAlign: 'center',
+                                }}
+                            >
+                                <img
+                                    width="25%"
+                                    alt="show settings start"
+                                    src="show_settings_start.gif"
+                                />
+                            </div>
+                            <Spacer />
+                            <p>
+                                Add basic training from board templates, install
+                                the app and select{' '}
+                                <strong>Training View</strong> from settings
+                                selection, and cycle through the training
+                                section using the app. Requires a{' '}
+                                <strong>Link</strong> column. Only the first
+                                column named Link will be used for video urls.
+                            </p>
+                            <div>
+                                <img
+                                    width="25%"
+                                    alt="copy board id"
+                                    src="copy_board_id.png"
+                                />
+                            </div>
+                            <p>
+                                At the top left corner, you can copy the board
+                                id.
+                            </p>
+                            <div>
+                                <img
+                                    width="75%"
+                                    alt="training collection board"
+                                    src="training_collection_board.png"
+                                />
+                            </div>
+                            <p>
+                                You can add this to another board that has a
+                                collection of all the board ids with a training
+                                structure similar to{' '}
+                                <strong> monday basic training. </strong>
+                            </p>
+                            <div>
+                                <img
+                                    width="75%"
+                                    alt="training collection view"
+                                    src="show_board_collection.gif"
+                                />
+                            </div>
+                            <p>
+                                You can now have access to boards under
+                                <strong>Training Collection! </strong>
+                                Create different training boards and add them to
+                                a training collection board to keep track of
+                                your team's training progress.
+                            </p>
+                            <div>
+                                <img
+                                    width="75%"
+                                    alt="track team progress"
+                                    src="keep_track.png"
+                                />
+                            </div>
+                            <p>
+                                That's all there is to it!
+                            </p>
+                        </div>
                     </DialogContentContainer>
                 </Col>
             </Row>

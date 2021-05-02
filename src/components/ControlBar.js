@@ -172,52 +172,56 @@ const ControlBar = props => {
                         </Tooltip>
                     </Col>
                 )}
-                <Col>
-                    <Tooltip
-                        showDelay={300}
-                        content={`Autoplay video on load autoplay is currently ${
-                            isAutoPlay ? 'on' : 'off'
-                        }`}
-                        containerSelector="body"
-                        position="bottom"
-                    >
-                        <Button
-                            size={Button.sizes.SMALL}
-                            color={
-                                isAutoPlay
-                                    ? Button.colors.POSITIVE
-                                    : Button.colors.NEGATIVE
-                            }
-                            onClick={() => setAutoPlay(!isAutoPlay)}
-                            kind={Button.kinds.TERTIARY}
+                {!isViewerAdmin && (
+                    <Col>
+                        <Tooltip
+                            showDelay={300}
+                            content={`Autoplay video on load autoplay is currently ${
+                                isAutoPlay ? 'on' : 'off'
+                            }`}
+                            containerSelector="body"
+                            position="bottom"
                         >
-                            <TurnInto />
-                        </Button>
-                    </Tooltip>
-                </Col>
-                <Col>
-                    <Tooltip
-                        showDelay={300}
-                        content={`Move to next section automatically: Autoforward is currently ${
-                            isAutoForward ? 'on' : 'off'
-                        }`}
-                        containerSelector="body"
-                        position="bottom"
-                    >
-                        <Button
-                            size={Button.sizes.SMALL}
-                            color={
-                                isAutoForward
-                                    ? Button.colors.POSITIVE
-                                    : Button.colors.NEGATIVE
-                            }
-                            onClick={() => setAutoForward(!isAutoForward)}
-                            kind={Button.kinds.TERTIARY}
+                            <Button
+                                size={Button.sizes.SMALL}
+                                color={
+                                    isAutoPlay
+                                        ? Button.colors.POSITIVE
+                                        : Button.colors.NEGATIVE
+                                }
+                                onClick={() => setAutoPlay(!isAutoPlay)}
+                                kind={Button.kinds.TERTIARY}
+                            >
+                                <TurnInto />
+                            </Button>
+                        </Tooltip>
+                    </Col>
+                )}
+                {!isViewerAdmin && (
+                    <Col>
+                        <Tooltip
+                            showDelay={300}
+                            content={`Move to next section automatically: Autoforward is currently ${
+                                isAutoForward ? 'on' : 'off'
+                            }`}
+                            containerSelector="body"
+                            position="bottom"
                         >
-                            <MoveArrowRight />
-                        </Button>
-                    </Tooltip>
-                </Col>
+                            <Button
+                                size={Button.sizes.SMALL}
+                                color={
+                                    isAutoForward
+                                        ? Button.colors.POSITIVE
+                                        : Button.colors.NEGATIVE
+                                }
+                                onClick={() => setAutoForward(!isAutoForward)}
+                                kind={Button.kinds.TERTIARY}
+                            >
+                                <MoveArrowRight />
+                            </Button>
+                        </Tooltip>
+                    </Col>
+                )}
                 <Col>
                     <Tooltip
                         showDelay={300}

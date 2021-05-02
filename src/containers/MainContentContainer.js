@@ -99,6 +99,7 @@ const MainContentContainer = (props) => {
             {!isValidBoardStructure && !isLoading && (
                 <ErrorMessage
                     setCurrentBoardId={setCurrentBoardId}
+                    isLoading={isLoading}
                     message={
                         'Either this is not a valid Board ID or not a valid board structure. If you are in training collection view, add a valid board ID, if you are in training view, update the column to contain a Link, with valid video URLs.'
                     }
