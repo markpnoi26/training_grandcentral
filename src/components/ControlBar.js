@@ -27,6 +27,7 @@ const ControlBar = props => {
         setAutoForward,
         setAutoPlay,
         setTrainingItems,
+        setCurrBoardItemIdx,
         isViewerAdmin,
         isDarkMode,
     } = props
@@ -39,6 +40,7 @@ const ControlBar = props => {
     }
 
     const refreshItem = () => {
+        setCurrBoardItemIdx(0)
         monday
             .api(
                 `

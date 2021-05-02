@@ -88,6 +88,7 @@ const ContentWindow = (props) => {
                             setAutoPlay={setAutoPlay}
                             setAutoForward={setAutoForward}
                             setTrainingItems={setTrainingItems}
+                            setCurrBoardItemIdx={setCurrBoardItemIdx}
                             isViewerAdmin={isViewerAdmin}
                             isDarkMode={isDarkMode}
                         />
