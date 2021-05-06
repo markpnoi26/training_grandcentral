@@ -87,7 +87,11 @@ const TitleBar = (props) => {
                                     kind={Button.kinds.TERTIARY}
                                     size={Button.sizes.SMALL}
                                     onClick={() => setCurrentBoardId(null)}
-                                    color={Button.colors.ON_PRIMARY_COLOR}
+                                    color={
+                                        isDarkMode
+                                            ? Button.colors.ON_PRIMARY_COLOR
+                                            : Button.colors.PRIMARY
+                                    }
                                 >
                                     <Group />
                                 </Button>
