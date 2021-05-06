@@ -13,8 +13,6 @@ import Row from 'react-bootstrap/Row'
 const monday = mondaySdk();
 const [SELECT, TRAINEE, TRAINER] = ['select', 'trainee', 'trainer']
 
-monday.setToken(process.env.REACT_APP_MONDAY_TOKEN);
-
 const App = () => {
     const [boardId, setCurrentBoardId] = useState(null)
     const [viewerStatus, setViewerStatus] = useState('')
